@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+  labels:
+    name: frontend
+spec:
+  containers:
+    - name: frontend
+      image: niklashakmann/frontend:1083987b08f2cc6a0b40d9a2e3502e0261c53624
+      ports:
+        - containerPort: 8080

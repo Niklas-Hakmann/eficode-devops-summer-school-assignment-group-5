@@ -50,4 +50,6 @@ jobs:
         with:
           context: ${{ matrix.service }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${{ env.GIT_COMMIT }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${{ env.GIT_COMMIT }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:latest
