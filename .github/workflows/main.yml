@@ -64,5 +64,5 @@ jobs:
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
-          chmod +x scripst/deploy.sh 
+          chmod +x scripts/deploy.sh 
           ./scripts/deploy.sh  
