@@ -75,6 +75,8 @@ jobs:
       - name: Test Deployed app
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          WORKSTATION_USER: ${{ secrets.WORKSTATION_USER }}
+          WORKSTATION_PASS: ${{ secrets.WORKSTATION_PASS}}  
         run: |
           chmod +x scripts/test.sh
           ./scripts/test.sh
