@@ -7,5 +7,5 @@ trap 'kill $(jobs -p)' Exit
 
 sleep 5
 
-curl -f http://localhost:9000/fortunes
-curl -f http://localhost:8080/healthz
+curl -u "$WORKSTATION_USER:$WORKSTATION_PASS" -f https://workstation-51.sdu.eficode.academy/proxy/9000/fortunes
+curl -u "$WORKSTATION_USER:$WORKSTATION_PASS" -f https://workstation-51.sdu.eficode.academy/proxy/8080/healthz
