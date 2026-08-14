@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -e
+
 echo "$KUBECONFIG" | base64 -d > kubeconfig
-kubectl --kubeconfig kubeconfig port-forward pod/backend 9000:9000 &
-kubectl --kubeconfig kubeconfig port-forward pod/frontend 8080:8080 &
-trap 'kill $(jobs -p)' Exit
 
-sleep 5
+NODE_IP=$(kubectl --kubeconfig kubeconfig get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="ExternalIP")].address}')
+BACKEND_PORT=$(kubectl --kubeconfig kubeconfig get svc backend -o jsonpath='{.spec.ports[0].nodePort}')
+FRONTEND_PORT=$(kubectl --kubeconfig kubeconfig get svc frontend -o jsonpath='{.spec.ports[0].nodePort}')
 
-curl -u "$WORKSTATION_USER:$WORKSTATION_PASS" -f https://workstation-51.sdu.eficode.academy/proxy/9000/fortunes
-curl -u "$WORKSTATION_USER:$WORKSTATION_PASS" -f https://workstation-51.sdu.eficode.academy/proxy/8080/healthz
+curl -f "http://${NODE_IP}:${BACKEND_PORT}/fortunes"
+curl -f "http://${NODE_IP}:${FRONTEND_PORT}/healthz"
