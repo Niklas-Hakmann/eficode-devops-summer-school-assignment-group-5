@@ -5,9 +5,14 @@ services:
   backend:
     container_name: backend
     image: backend:latest
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      REDIS_DNS: redis
     ports:
       - 9000
-
+    
   frontend:
     container_name: frontend
     image: frontend:latest
